@@ -152,3 +152,11 @@ body {
     padding: 20px;
     text-align: left;
 }
+
+#archive {
+    text-align: left;
+    width: fit-content;
+    margin: 5px auto;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}

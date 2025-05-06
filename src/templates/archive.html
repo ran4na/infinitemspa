@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}Create new...{% endblock %}
+{% block additional_styles %}
+<link rel="stylesheet" href="/static/assets/tegaki.css" type="text/css">
+{% endblock %}
+
+{% block comic_content %}
+    <div id="archive">
+        <ul>
+            {% for page in pages %}
+                <li>
+                    #{{ page.page_num }}: <a href="/page/{{ page.page_num }}">{{ page.page_title }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}

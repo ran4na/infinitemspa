@@ -68,3 +68,12 @@ def show_page(page_number):
         prev_url=prev_page_url,
         latest_url = f"/page/{newest_page.page_num}",
     )
+
+
+@views.route('/archive')
+def archive():
+    return render_template('archive.html', pages=Page.query.filter_by(deleted=False).order_by(Page.page_num.asc()).all())
+
+@views.route('/credits')
+def credits():
+    return render_template('credits.html')
