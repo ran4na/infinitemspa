@@ -5,17 +5,23 @@ from models import *
 from api import *
 from admin import *
 import secrets
+from configparser import ConfigParser
+
 
 app = Flask(__name__)
 bcrypt = Bcrypt(app)
+
+config = ConfigParser()
+config.read(os.path.join(app.root_path, 'config.cfg'))
 
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, "data/database.db")
 app.config['UPLOAD_FOLDER'] = "static/upload/"
-app.config['MAX_CONTENT_LENGTH'] = 5 * 1024 * 1024 # 5MB
+app.config['MAX_CONTENT_LENGTH'] = int(config.get('config', 'MAX_SIZE')) * 1024 * 1024 # 5MB
 secret = secrets.token_urlsafe(16)
 app.config['SECRET_KEY'] = secret
+app.config["UPLOAD_LOCK"] = bool(config.get('config', 'UPLOAD_LOCK'))
 
 app.register_blueprint(views)
 app.register_blueprint(models)

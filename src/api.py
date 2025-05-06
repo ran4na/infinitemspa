@@ -18,6 +18,10 @@ ALLOWED_EXTENSIONS = { 'png', 'jpg', 'jpeg', 'gif'}
 # upload page thru page creation form @ new_page.html
 @api.route("/create_page", methods=["POST"])
 def create_page():
+    # dont upload if locked
+    if current_app.config["UPLOAD_LOCK"]:
+        return jsonify({ "error" : "Uploads are currently locked." })
+    
     # Get basic data
     page_number : int = int(request.form.get("page_num"))
     page_title : str = request.form.get("page_title")
@@ -241,3 +245,19 @@ def get_image_list():
     images = [image.to_dict() for image in images]
     
     return jsonify(images)
+
+@api.route("/toggle_upload_lock", methods=["GET"])
+@login_required
+def toggle_upload_lock():
+    # get all banned users
+    if(current_app.config["UPLOAD_LOCK"]):
+        current_app.config["UPLOAD_LOCK"] = False
+    else:
+        current_app.config["UPLOAD_LOCK"] = True
+    return jsonify({ "locked" : f"{current_app.config['UPLOAD_LOCK']}" })
+
+@api.route("/get_lock_status", methods=["GET"])
+@login_required
+def get_lock_status():
+    return jsonify({ "locked" : f"{current_app.config['UPLOAD_LOCK']}" })
+

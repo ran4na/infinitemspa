@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", populatePageTable);
 document.addEventListener("DOMContentLoaded", populateBanTable);
 document.addEventListener("DOMContentLoaded", populateImageTable);
+document.addEventListener("DOMContentLoaded", getLockStatus);
 
 // Gets page listand populates table
 async function populatePageTable() {
@@ -219,5 +220,55 @@ async function unbanUser(ban_id) {
             alert(json_data.success);
             await populateBanTable();
         }
+    }
+}
+
+async function toggleLock() {
+    const toggleLock = await fetch('/api/toggle_upload_lock', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
+    var json_data = await toggleLock.json();
+    if (json_data["error"] != null || json_data == null) {
+        // redirect to new page
+        return;
+    }
+    var status = document.getElementById("upload-status");
+
+    var lockButton = document.getElementById("lock-button");
+    if (json_data["locked"] == "True") {
+        lockButton.innerHTML = "Unlock uploads";
+        status.innerHTML = "Uploads: Locked";
+        
+    } else {
+        lockButton.innerHTML = "Lock uploads";
+        status.innerHTML = "Uploads: Unlocked";
+    }
+}
+
+async function getLockStatus() {
+    const toggleLock = await fetch('/api/get_lock_status', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
+    var json_data = await toggleLock.json();
+    if (json_data["error"] != null || json_data == null) {
+        // redirect to new page
+        return;
+    }
+    var status = document.getElementById("upload-status");
+    var lockButton = document.getElementById("lock-button");
+
+    if (json_data["locked"] == "True") {
+        lockButton.innerHTML = "Unlock uploads";
+        status.innerHTML = "Uploads: Locked";
+        
+    } else {
+        lockButton.innerHTML = "Lock uploads";
+        status.innerHTML = "Uploads: Unlocked";
     }
 }

@@ -9,7 +9,11 @@
     <div id="admin-ui">
         <h1>Admin portal</h1>
         <a href="/">Home</a>
-        <hr> 
+        <hr>
+        <div id="upload-status">
+            Uploads: Unlocked
+        </div>
+        <button onclick="toggleLock();" id="lock-button">Lock uploads</button>
         <h3>Pages:</h3>
         <div id="page-list-div">
             <table id="page-table">
