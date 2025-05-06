@@ -66,6 +66,11 @@ class Page(db.Model):
             return next_undeleted.page_num
         return None
     
+    def prev_undeleted_page(self):
+        prev_undeleted = Page.query.filter(Page.deleted == False, Page.page_num < self.page_num).order_by(Page.page_num.desc()).first()
+        if prev_undeleted is not None:
+            return prev_undeleted.page_num
+        return None
     # returns latest page
     def get_newest_page():
         pages = Page.query.order_by(Page.page_num.desc()).all()

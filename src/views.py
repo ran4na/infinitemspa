@@ -50,7 +50,7 @@ def show_page(page_number):
 
     # Handle previous page
     if prev_page is not None and prev_page.deleted is True:
-        prev_page = Page.query.filter_by(deleted=False).order_by(Page.page_num.asc()).first()
+        prev_page = Page.query.get(prev_page.prev_undeleted_page())
     prev_page_url = None if prev_page is None else f"/page/{prev_page.page_num}"
 
     # Render the page
