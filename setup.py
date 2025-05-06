@@ -1,7 +1,7 @@
 from setuptools import find_packages, setup 
 
 setup( 
-    name='tiny-bbs', 
+    name='infinite-mspa', 
     version='0.1', 
     description='', 
     author='', 
