@@ -55,3 +55,46 @@ async function submitPage() {
         errorField.innerHTML = `Error: ${ json_data["error"] }`
     }
 }
+
+function openTegaki() {
+    Tegaki.open({
+        // when the user clicks on Finish
+        onDone: function() {          
+          var data_url = Tegaki.flatten().toDataURL('image/png')
+          setFiletoDataURL(data_url, "tegaki.png");
+        },
+        // when the user clicks on Cancel
+        onCancel: function() { console.log('Closing...')},
+        
+        // initial canvas size
+        width: 650,
+        height: 450
+      });
+}
+
+// Embed tegaki image data URL to file chooser
+async function setFiletoDataURL(url, filename) {
+    // Fetch from URL
+    const response = await fetch(url);
+    const blob = await response.blob();
+    
+    // Create new ""File"" from the url blob
+    const file = new File([blob], filename);
+    const dataTransfer = new DataTransfer();
+    dataTransfer.items.add(file);
+
+    const fileInput = document.getElementById("file_upload");
+    fileInput.files = dataTransfer.files;
+
+    // Fire onchange to update preview
+    const changeEvent = new Event('change');
+    fileInput.dispatchEvent(changeEvent);
+}
+
+function loadFile(event) {
+    var preview_element = document.getElementById("output-preview");
+    preview_element.src = URL.createObjectURL(event.target.files[0]);
+    preview_element.onload = function() {
+        URL.revokeObjectURL(output.src);
+    }
+}

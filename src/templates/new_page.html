@@ -1,6 +1,9 @@
 {% extends 'base.html' %}
 
 {% block title %}Create new...{% endblock %}
+{% block additional_styles %}
+<link rel="stylesheet" href="/static/assets/tegaki.css" type="text/css">
+{% endblock %}
 
 {% block comic_content %}
     <h1>Create the next page:</h1>
@@ -8,7 +11,9 @@
         <p>Page title:</p>
         <input type="hidden" name="page_num" value="{{ page_num }}">
         <input type="text" name="page_title" id="new-page-titlebox" placeholder="==> New page..." required><br>
-        <label for="panel_img">Panel image: </label><input type="file" name="panel_img" onchange="loadFile(event);" required><br>
+        <label for="panel_img">Panel image: </label>
+        <input type="file" name="panel_img" onchange="loadFile(event);" id="file_upload" required><br>
+        or <button type="button" onclick="openTegaki()">Draw one</button><br>
         <!-- Image upload preview -->
         Preview:<br>
         <img id="output-preview" class="comic-image" src="/static/assets/i/defaultpanel.gif">
@@ -31,16 +36,7 @@
         </div>
         <input type="submit"><br><br>
         <div id="submit-error-msg"></div><br>
-    </form>    
-
-    <script>
-        function loadFile(event) {
-            var preview_element = document.getElementById("output-preview");
-            preview_element.src = URL.createObjectURL(event.target.files[0]);
-            preview_element.onload = function() {
-                URL.revokeObjectURL(output.src);
-            }
-        }
-    </script>
+    </form>
+    <script src="/static/assets/tegaki.js"></script>
     <script src="/static/assets/new_page_editor.js"></script>
 {% endblock %}
