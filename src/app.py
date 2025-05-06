@@ -17,7 +17,9 @@ config.read(os.path.join(app.root_path, 'config.cfg'))
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, "data/database.db")
-app.config['UPLOAD_FOLDER'] = "static/upload/"
+app.config['IMG_URL'] = "/static/upload/"
+
+app.config['UPLOAD_FOLDER'] = os.path.join(app.root_path, 'static', 'upload')
 app.config['MAX_CONTENT_LENGTH'] = config.getint('config', 'MAX_SIZE') * 1024 * 1024 # 5MB
 secret = secrets.token_urlsafe(16)
 app.config['SECRET_KEY'] = secret

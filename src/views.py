@@ -56,7 +56,7 @@ def show_page(page_number):
     # Render the page
     title = page.page_title
     text = Markup(bbcode.format(page.page_text))
-    image_path = "/" + current_app.config["UPLOAD_FOLDER"] + page.panel_image.image_filename
+    image_path = current_app.config["IMG_URL"] + page.panel_image.image_filename
 
     return render_template(
         'rendered_comic.html',
