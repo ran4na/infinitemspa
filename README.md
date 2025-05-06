@@ -5,4 +5,5 @@ Make sure to set a secure admin password. Admin portal is at /admin_portal, wher
 
 ## Installation:
 Install dependencies w/ ``pip install -e .``
+
 Run the development server w/ ``python src/app.py``
