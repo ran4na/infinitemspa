@@ -6,20 +6,22 @@
     <!-- Page command/title thing -->
     <h1>{{ p_title }}</h1>
     <!-- Panel image -->
-    <img src="{{ p_imgpath }}">
+    <img src="{{ p_imgpath }}" class="comic-image">
     <!-- Text -->
-    <span id="comic_text">
+    <p id="comic-text">
         {{ p_text }}
-    </span>
+    </p>
     
     <!-- Next/Previous links -->
     <div id="comicnav">
         <div class="nextlink">> <a href="{{ next_url }}">{{ next_title }}</a></div>
         <div id="gamelinks">
-            <span class="gamelinks-left"><a href="/page/1">Start over</a>
+            <span class="gamelinks-left">
+                <a href="/page/1">Start over</a>
                 {% if prev_url %}
                 | <a href="{{prev_url}}">Go back</a>
                 {% endif %}
+                | <a href="{{ latest_url }}">Latest</a>
             </span>
             <span class="gamelinks-right"><a href="">Save Game</a> <a href="">(?)</a> | <a href="">Auto-Save!</a> <a href="">(?)</a> | <a href="">Load Game</a> | <a href="">Delete Game Data</a></span>
     </div>

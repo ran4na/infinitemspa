@@ -1,7 +1,7 @@
 from flask import *
 from models import *
-import bbcode
 from markupsafe import Markup
+from bbcode_custom import parser as bbcode
 
 views = Blueprint('views', __name__)
 
@@ -55,7 +55,7 @@ def show_page(page_number):
 
     # Render the page
     title = page.page_title
-    text = Markup(bbcode.render_html(page.page_text))
+    text = Markup(bbcode.format(page.page_text))
     image_path = "/" + current_app.config["UPLOAD_FOLDER"] + page.panel_image.image_filename
 
     return render_template(
@@ -65,5 +65,6 @@ def show_page(page_number):
         p_imgpath=image_path,
         next_title=next_page_title,
         next_url=next_page_url,
-        prev_url=prev_page_url
+        prev_url=prev_page_url,
+        latest_url = f"/page/{newest_page.page_num}",
     )

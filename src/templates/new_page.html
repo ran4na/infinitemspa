@@ -7,14 +7,26 @@
     <form id="new-page-form" action="javascript:submitPage();">
         <p>Page title:</p>
         <input type="hidden" name="page_num" value="{{ page_num }}">
-        <input type="text" name="page_title" id="new-page-titlebox" placeholder="==> New page..."><br>
+        <input type="text" name="page_title" id="new-page-titlebox" placeholder="==> New page..." required><br>
         <label for="panel_img">Panel image: </label><input type="file" name="panel_img" onchange="loadFile(event);" required><br>
         <!-- Image upload preview -->
         Preview:<br>
-        <img id="output-preview" src="/static/assets/i/defaultpanel.gif">
+        <img id="output-preview" class="comic-image" src="/static/assets/i/defaultpanel.gif">
         
         <p>Panel text (bbcode):</p>
         <div id="panel-text-box">
+            <div id="bbcode-button-row">
+                <button type="button" onclick="add_bbcode_tag('pesterlog');">Pesterlog</button>
+                <button type="button" onclick="add_bbcode_tag('color');">Color</button>
+                <button type="button" onclick="add_bbcode_tag('bold');">Bold</button>
+                <button type="button" onclick="add_bbcode_tag('italic');">Italic</button>
+                <button type="button" onclick="add_bbcode_tag('underline');">Underline</button>
+                <button type="button" onclick="add_bbcode_tag('list');">Unordered List</button>
+                <button type="button" onclick="add_bbcode_tag('olist');">Ordered List</button>
+                <button type="button" onclick="add_bbcode_tag('url');">Link</button>
+                <button type="button" onclick="add_bbcode_tag('img');">Image</button>
+            </div>
+            <br>
             <textarea name="page_text" id="new-page-textarea" placeholder="enter text..." required></textarea>
         </div>
         <input type="submit"><br><br>

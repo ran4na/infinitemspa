@@ -50,7 +50,8 @@ class Page(db.Model):
             "panel_file_id": self.panel_file_id,
             "panel_filename": self.panel_image.image_filename,
             "page_text": self.page_text,
-            "page_uploader": self.uploader_ip_hash
+            "page_uploader": self.uploader_ip_hash,
+            "deleted": self.deleted
         }
         
     def soft_delete_page(self):
