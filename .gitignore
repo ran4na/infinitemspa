@@ -1,5 +1,5 @@
 venv
 src/*.egg-info
-src/data/*
+src/data/*.db
 src/static/upload/*
 src/__pycache__
