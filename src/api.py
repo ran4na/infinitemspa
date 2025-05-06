@@ -27,9 +27,11 @@ def create_page():
     page_title : str = request.form.get("page_title")
     page_panel : Optional[FileStorage] = request.files["panel_img"]
     page_text: str = request.form.get("page_text")
-    
-    uploader_ip : str = request.remote_addr
-    
+    if request.headers.get('X-Forwarded-For'):
+        uploader_ip : str = request.headers['X-Forwarded-For'].split(',')[0].strip()
+    else:
+        uploader_ip : str = request.remote_addr
+
     if(None in [page_number, page_title, page_panel, uploader_ip]):
         # Error
         return jsonify({ "error" : "Required values are missing." })
