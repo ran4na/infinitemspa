@@ -1,0 +1,128 @@
+body {
+    background-color: rgb(83, 83, 83);
+    margin: 0px;
+}
+
+#mspa-nav {
+    margin: 0 auto;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    text-align: center;
+    padding: 2px;
+    background-color: rgb(90, 90, 90);
+    width: 950px;
+    height: 16px;
+    color: white;
+    font-weight: bold;
+}
+
+.bottombanner {
+    margin: 0 auto;
+    text-align: center;
+    width: 950px;
+}
+
+#mspa-nav img {
+    height: 16px;
+    vertical-align:middle;
+}
+
+#main {
+    margin: 0 auto;
+    overflow: auto;
+    background-color: #c6c6c6;
+    width: 950px;
+    font-family:'Courier New', Courier, monospace;
+    font-weight: bold;
+    padding-top: 7px;
+    padding-bottom: 20px;
+}
+
+#content {
+    overflow: auto;
+    background-color: #eeeeee;
+    text-align: center;
+    font-size: 14px;
+    width: 650px;
+    padding: 0px;
+    margin: 0 auto;
+}
+
+#content h1 {
+    font-size: xx-large;
+    margin-top: 12px;
+    margin-bottom: 12px;
+}
+
+#content p {
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 14px;
+    margin-top: 12px;
+    margin-bottom: 12px;
+    width: 600px;
+    line-height: 1.35;
+}
+
+#comicnav {
+    overflow: auto;
+    text-align: left;
+    width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 15px;
+}
+
+.nextlink {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: normal;
+    font-size: 24px;
+    margin-bottom: 30px;
+}
+
+#gamelinks {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 10px;
+}
+
+.gamelinks-left {
+    float: left;
+}
+
+.gamelinks-right {
+    float: right;
+}
+
+.footer {
+    background-color: #EFEFEF;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 10px;
+    font-weight: bold;
+    width: 950px;
+    margin: 0 auto;
+    text-align: left;
+}
+
+
+#new-page-titlebox {
+    font-size: xx-large;
+    margin-top: 12px;
+    margin-bottom: 12px;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+}
+
+#panel-text-box {
+    width: 100%;
+    text-align: center;
+}
+
+#new-page-textarea {
+    width: 95%;
+    min-height: 240px;
+}
+
+
+#submit-error-msg {
+    color: red;
+}
