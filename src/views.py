@@ -13,10 +13,6 @@ def index():
 def go_to_page(page_number):
     return redirect(f'/page/{page_number}')
 
-@views.route('/new')
-def create_new_comic():
-    return render_template('new_page.html')
-
 @views.route('/page/<int:page_number>')
 def show_page(page_number):
     newest_page: Page = Page.get_newest_page()
