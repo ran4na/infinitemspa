@@ -4,20 +4,21 @@
 
 {% block comic_content %}
     <h1>Create the next page:</h1>
-    <form id="new-page-form">
+    <form id="new-page-form" action="javascript:submitPage();">
         <p>Page title:</p>
+        <input type="hidden" name="page_num" value="{{ page_num }}">
         <input type="text" name="page_title" id="new-page-titlebox" placeholder="==> New page..."><br>
         <label for="panel_img">Panel image: </label><input type="file" name="panel_img" onchange="loadFile(event);" required><br>
         <!-- Image upload preview -->
         Preview:<br>
-        <img id="output-preview" src="static/assets/i/defaultpanel.gif">
+        <img id="output-preview" src="/static/assets/i/defaultpanel.gif">
         
         <p>Panel text (bbcode):</p>
         <div id="panel-text-box">
             <textarea name="page_text" id="new-page-textarea" placeholder="enter text..." required></textarea>
         </div>
         <input type="submit"><br><br>
-        <div id="submit-error-msg">Error: Your file is too big!</div><br>
+        <div id="submit-error-msg"></div><br>
     </form>    
 
     <script>
@@ -29,4 +30,5 @@
             }
         }
     </script>
+    <script src="/static/assets/new_page_editor.js"></script>
 {% endblock %}

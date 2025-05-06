@@ -1,0 +1,32 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+#login-form {
+    margin: 0 auto;
+    display: block;
+    text-align: center;
+    background-color: rgb(212, 212, 212);
+    width: fit-content;
+    padding: 5px;
+}
+
+table, tr, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+    padding: 5px;
+    background-color: white;
+}
+
+table {
+    margin: 5px auto;
+}
+
+#admin-ui {
+    margin: 0 auto;
+    display: block;
+    text-align: center;
+    background-color: rgb(212, 212, 212);
+    width: fit-content;
+    padding: 5px;
+}

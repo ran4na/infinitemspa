@@ -4,20 +4,23 @@
 
 {% block comic_content %}
     <!-- Page command/title thing -->
-    <h1>Be the other kid.</h1>
+    <h1>{{ p_title }}</h1>
     <!-- Panel image -->
-    <img src="static/assets/i/defaultpanel.gif"
-
+    <img src="{{ p_imgpath }}">
     <!-- Text -->
     <span id="comic_text">
-        Your name is a BLANK PAGE. There's nothing here yet, sadly.
+        {{ p_text }}
     </span>
     
     <!-- Next/Previous links -->
     <div id="comicnav">
-        <div class="nextlink">> <a href="">Be the other kid.</a></div>
+        <div class="nextlink">> <a href="{{ next_url }}">{{ next_title }}</a></div>
         <div id="gamelinks">
-            <span class="gamelinks-left"><a href="">Start over</a> | <a href="">Go back</a></span>
+            <span class="gamelinks-left"><a href="/page/1">Start over</a>
+                {% if prev_url %}
+                | <a href="{{prev_url}}">Go back</a>
+                {% endif %}
+            </span>
             <span class="gamelinks-right"><a href="">Save Game</a> <a href="">(?)</a> | <a href="">Auto-Save!</a> <a href="">(?)</a> | <a href="">Load Game</a> | <a href="">Delete Game Data</a></span>
     </div>
     </div>

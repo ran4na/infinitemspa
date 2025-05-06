@@ -21,6 +21,7 @@ setup(
         'Pillow',    
         'qrcode',
         'WTForms-Alchemy',
-        'bbcode'
+        'bbcode',
+        'imagehash'
     ]
 )
