@@ -8,6 +8,8 @@ import imagehash
 import os
 from flask_login import login_required, current_user
 from flask import current_app
+import time
+import bbcode_custom
 
 api = Blueprint('api', __name__, url_prefix='/api')
 
@@ -267,3 +269,52 @@ def toggle_upload_lock():
 def get_lock_status():
     return jsonify({ "locked" : f"{current_app.config['UPLOAD_LOCK']}" })
 
+@api.route("/export_adventure_as_json", methods=["GET"])
+@login_required
+def export_as_json():
+    # get all undeleted pages
+    all_pages : list[Page] = Page.query.filter_by(deleted = False)
+    
+    json_dict : dict = {}
+    
+    json_dict["n"] = "Infinite MSPA" # adventure name
+    json_dict["o"] = "" # adventure icon
+    
+    # set it to my filegarden imspa folder for now
+    image_basepath = "https://file.garden/Yt9c8OgHkWVkfQq2/imspa/p/"
+    
+    next_page_number = 2
+    
+    page_list = []
+    
+    for page in all_pages:
+        # construct each page object
+        # format: { d: date as unix timestamp (int), c: page title (str), b: page content (str), n: next page number [int] (index starts at 1) }
+        page_object : dict = {}
+        page_object["d"] = int(time.time())
+        page_object["c"] = page.page_title
+        # combine page image and page content
+        img_filename = page.panel_image.image_filename
+        img_url = image_basepath + img_filename
+        img_tag = f'<img src="{img_url}" width="650" height="auto">'
+        
+        page_object["b"] = img_tag + "<br>" + reformat_bbcode_mspfa(page.page_text)
+        
+        page_object["n"] = [ next_page_number ]
+        
+        page_list.append(page_object)
+        
+        next_page_number += 1
+    
+    
+    json_dict["p"] = page_list
+    
+    json_data = jsonify(json_dict)
+    
+    return(json_data)
+
+
+def reformat_bbcode_mspfa(bbcode_string):
+    new_bbcode_string = bbcode_string.replace("pesterlog]", "spoiler]")
+    
+    return new_bbcode_string
