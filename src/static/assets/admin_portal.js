@@ -37,11 +37,11 @@ async function populatePageTable() {
         var page = json_data[i];
         
         var row = document.createElement("tr");
-        row.innerHTML = `<td>${page["page_num"]}</td>
-                         <td>${page["page_title"]}</td>
+        row.innerHTML = `<td><a href="/page/${page["page_num"]}">${page["page_num"]}</a></td>
+                         <td>${page["page_title"].substring(0,30)}</td>
                          <td>${page["panel_file_id"]}</td>
-                         <td>${page["panel_filename"]}</td>
-                         <td>${page["page_text"].substring(0, 20)}...</td>
+                         <td><a href="/static/upload/${page["panel_filename"]}">${page["panel_filename"]}</a></td>
+                         <td>${page["page_text"].substring(0, 30)}...</td>
                          <td>${page["page_uploader"]}</td>
                          <td>${page["deleted"]}</td>
                          <td><button onclick="softDelPage(${page["page_num"]})">Soft delete</button></td>
