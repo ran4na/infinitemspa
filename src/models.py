@@ -56,7 +56,8 @@ class Page(db.Model):
         
     def soft_delete_page(self):
         self.page_title = ""
-        self.panel_image.soft_delete()
+        if(self.panel_image.deleted is False):
+            self.panel_image.soft_delete()
         self.page_text = ""
         self.deleted = True
     
