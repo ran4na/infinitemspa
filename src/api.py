@@ -10,6 +10,7 @@ from flask_login import login_required, current_user
 from flask import current_app
 import time
 import bbcode_custom
+import json
 
 api = Blueprint('api', __name__, url_prefix='/api')
 
@@ -298,7 +299,7 @@ def export_as_json():
         img_url = image_basepath + img_filename
         img_tag = f'<img src="{img_url}" width="650" height="auto">'
         
-        page_object["b"] = img_tag + "<br>" + reformat_bbcode_mspfa(page.page_text)
+        page_object["b"] = img_tag + "<br>" + reformat_bbcode_mspfa(json.dumps(page.page_text))
         
         page_object["n"] = [ next_page_number ]
         
