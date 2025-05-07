@@ -29,12 +29,16 @@
         <!-- Main comic -->
         <div id="main">
             <div id="content">
+                {% if app_lock %}
+                <p style="color: red;">Uploads are currently locked!</p>
+                {% endif %}
                 {% block comic_content %}There's nothing here!{% endblock %}
             </div>
 
             <div class="additional-content">
                 <h2>Rules:</h2>
                 <ol>
+                    <li>Fieldball</li>
                     <li>No NSFW. Sex jokes are fine as long as they don't contain anything explicit.</li>
                     <li>Don't spam.</li>
                     <li>If it breaks MSPFA rules, don't post it (This will be mirrored to MSPFA.)</li>

@@ -15,10 +15,15 @@ def go_to_page(page_number):
 
 @views.route('/page/<int:page_number>')
 def show_page(page_number):
+    if(current_app.config["UPLOAD_LOCK"] is True):
+        app_lock = True
+    else:
+        app_lock = False
+
     newest_page: Page = Page.get_newest_page()
 
     if newest_page is None:
-        return render_template('new_page.html', page_num=1)
+        return render_template('new_page.html', page_num=1, app_lock=app_lock)
 
     # Check if page exists. If not, show new_page.html
     if page_number > newest_page.page_num + 1:
@@ -28,12 +33,12 @@ def show_page(page_number):
     page: Page = Page.query.filter_by(page_num=page_number).first()
     if page is None:
         # Show page creator
-        return render_template('new_page.html', page_num=page_number)
+        return render_template('new_page.html', page_num=page_number, app_lock=app_lock)
 
     # Handle deleted pages
     if page.deleted is True:
         if page.page_num == newest_page.page_num:
-            return render_template('new_page.html', page_num=page.page_num + 1)
+            return render_template('new_page.html', page_num=page.page_num + 1, app_lock=app_lock)
         if page.next_undeleted_page() is None:
             return redirect("/page/1")
         return redirect(f"/page/{page.next_undeleted_page()}")
@@ -58,6 +63,7 @@ def show_page(page_number):
     text = Markup(bbcode.format(page.page_text))
     image_path = current_app.config["IMG_URL"] + page.panel_image.image_filename
 
+
     return render_template(
         'rendered_comic.html',
         p_title=title,
@@ -67,6 +73,7 @@ def show_page(page_number):
         next_url=next_page_url,
         prev_url=prev_page_url,
         latest_url = f"/page/{newest_page.page_num}",
+        app_lock = app_lock
     )
 
 

@@ -7,12 +7,12 @@
 
 {% block comic_content %}
     <h1>Create the next page:</h1>
-    <form id="new-page-form" action="javascript:submitPage();">
+    <form id="new-page-form" {% if not app_lock %}action="javascript:submitPage();"{% endif %} >
         <p>Page title:</p>
         <input type="hidden" name="page_num" value="{{ page_num }}">
-        <input type="text" name="page_title" id="new-page-titlebox" placeholder="==> New page..." required><br>
+        <input type="text" name="page_title" id="new-page-titlebox" placeholder="==> New page..." required {% if app_lock %}disabled{% endif %}><br>
         <label for="panel_img">Panel image: </label>
-        <input type="file" name="panel_img" onchange="loadFile(event);" id="file_upload" required><br>
+        <input type="file" name="panel_img" onchange="loadFile(event);" id="file_upload" required {% if app_lock %}disabled{% endif %}><br>
         or <button type="button" onclick="openTegaki()">Draw one</button><br>
         <!-- Image upload preview -->
         Preview:<br>
@@ -21,20 +21,20 @@
         <p>Panel text (bbcode):</p>
         <div id="panel-text-box">
             <div id="bbcode-button-row">
-                <button type="button" onclick="add_bbcode_tag('pesterlog');">Pesterlog</button>
-                <button type="button" onclick="add_bbcode_tag('color');">Color</button>
-                <button type="button" onclick="add_bbcode_tag('bold');">Bold</button>
-                <button type="button" onclick="add_bbcode_tag('italic');">Italic</button>
-                <button type="button" onclick="add_bbcode_tag('underline');">Underline</button>
-                <button type="button" onclick="add_bbcode_tag('list');">Unordered List</button>
-                <button type="button" onclick="add_bbcode_tag('olist');">Ordered List</button>
-                <button type="button" onclick="add_bbcode_tag('url');">Link</button>
-                <button type="button" onclick="add_bbcode_tag('img');">Image</button>
+                <button type="button" onclick="add_bbcode_tag('pesterlog');" {% if app_lock %}disabled{% endif %}>Pesterlog</button>
+                <button type="button" onclick="add_bbcode_tag('color');" {% if app_lock %}disabled{% endif %}>Color</button>
+                <button type="button" onclick="add_bbcode_tag('bold');" {% if app_lock %}disabled{% endif %}>Bold</button>
+                <button type="button" onclick="add_bbcode_tag('italic');" {% if app_lock %}disabled{% endif %}>Italic</button>
+                <button type="button" onclick="add_bbcode_tag('underline');" {% if app_lock %}disabled{% endif %}>Underline</button>
+                <button type="button" onclick="add_bbcode_tag('list');" {% if app_lock %}disabled{% endif %}>Unordered List</button>
+                <button type="button" onclick="add_bbcode_tag('olist');" {% if app_lock %}disabled{% endif %}>Ordered List</button>
+                <button type="button" onclick="add_bbcode_tag('url');" {% if app_lock %}disabled{% endif %}>Link</button>
+                <button type="button" onclick="add_bbcode_tag('img');" {% if app_lock %}disabled{% endif %}>Image</button>
             </div>
             <br>
-            <textarea name="page_text" id="new-page-textarea" placeholder="enter text..." required></textarea>
+            <textarea name="page_text" id="new-page-textarea" placeholder="enter text..." required {% if app_lock %}disabled{% endif %}></textarea>
         </div>
-        <input type="submit"><br><br>
+        <input type="submit" {% if app_lock %}disabled value="Thanks for playing!"{% endif %}><br><br>
         <div id="submit-error-msg"></div><br>
     </form>
     <script src="/static/assets/tegaki.min.js"></script>

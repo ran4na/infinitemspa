@@ -6,7 +6,7 @@ import PIL
 import filetype
 import imagehash
 import os
-from flask_login import login_required
+from flask_login import login_required, current_user
 from flask import current_app
 
 api = Blueprint('api', __name__, url_prefix='/api')
@@ -19,7 +19,7 @@ ALLOWED_EXTENSIONS = { 'png', 'jpg', 'jpeg', 'gif'}
 @api.route("/create_page", methods=["POST"])
 def create_page():
     # dont upload if locked
-    if current_app.config["UPLOAD_LOCK"]:
+    if current_app.config["UPLOAD_LOCK"] and not current_user.is_authenticated:
         return jsonify({ "error" : "Uploads are currently locked." })
     
     # Get basic data
@@ -36,6 +36,10 @@ def create_page():
         # Error
         return jsonify({ "error" : "Required values are missing." })
     
+    # check if title is empty or whitespace
+    if(page_title.strip() == ""):
+        return jsonify({ "error" : "title can't be empty!" })
+
     # First, check if page is not the newest page + 1, or already exists.
     newest_page : Page = Page.get_newest_page()
     if newest_page is not None:
