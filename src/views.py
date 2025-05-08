@@ -2,6 +2,7 @@ from flask import *
 from models import *
 from markupsafe import Markup
 from bbcode_custom import parser as bbcode
+from flask_login import current_user
 
 views = Blueprint('views', __name__)
 
@@ -15,7 +16,7 @@ def go_to_page(page_number):
 
 @views.route('/page/<int:page_number>')
 def show_page(page_number):
-    if(current_app.config["UPLOAD_LOCK"] is True):
+    if(current_app.config["UPLOAD_LOCK"] is True and current_user.is_authenticated is False):
         app_lock = True
     else:
         app_lock = False

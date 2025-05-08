@@ -282,7 +282,7 @@ def export_as_json():
     json_dict["o"] = "" # adventure icon
     
     # set it to my filegarden imspa folder for now
-    image_basepath = "https://file.garden/Yt9c8OgHkWVkfQq2/imspa/p/"
+    image_basepath = "[FILE GARDEN LINK HERE]"
     
     next_page_number = 2
     
@@ -299,7 +299,7 @@ def export_as_json():
         img_url = image_basepath + img_filename
         img_tag = f'<img src="{img_url}" width="650" height="auto">'
         
-        page_object["b"] = img_tag + "<br>" + reformat_bbcode_mspfa(json.dumps(page.page_text))
+        page_object["b"] = img_tag + "<br>" + reformat_bbcode_mspfa(page.page_text)
         
         page_object["n"] = [ next_page_number ]
         
@@ -319,3 +319,43 @@ def reformat_bbcode_mspfa(bbcode_string):
     new_bbcode_string = bbcode_string.replace("pesterlog]", "spoiler]")
     
     return new_bbcode_string
+
+@api.route("/export_adventure_as_draft_json", methods=["GET"])
+@login_required
+def export_as_draft_json():
+    # get all undeleted pages
+    all_pages : list[Page] = Page.query.filter_by(deleted = False)
+    
+    json_dict : dict = {}
+    
+    json_dict["cachedTitle"] = "Infinite MSPA" # adventure name
+    
+    # set it to my filegarden imspa folder for now
+    image_basepath = "[FILE GARDEN LINK HERE]"
+    
+    cur_page_number = 1
+    next_page_number = 2
+    
+    
+    for page in all_pages:
+        # construct each page object
+        # format: { d: date as unix timestamp (int), c: page title (str), b: page content (str), n: next page number [int] (index starts at 1) }
+        page_object : dict = {}
+        page_object["command"] = page.page_title
+        # combine page image and page content
+        img_filename = page.panel_image.image_filename
+        img_url = image_basepath + img_filename
+        img_tag = f'<img src="{img_url}" width="650" height="auto">'
+        
+        page_object["pageContent"] = img_tag + "<br>" + reformat_bbcode_mspfa(page.page_text)
+        
+        page_object["next"] = str(next_page_number)
+        
+        json_dict[str(cur_page_number)] = page_object
+        
+        cur_page_number += 1
+        next_page_number += 1
+    
+    json_data = jsonify(json_dict)
+    
+    return(json_data)
